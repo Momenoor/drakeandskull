@@ -42,7 +42,7 @@ class HomeController extends Controller
 
 // Select the mailbox (folder) you want to retrieve emails from
 
-            $folder = $cm->getFolder('INBOX');
+            $folder = $client->getFolder('INBOX');
 
 
 // Get all unseen emails from the selected folder
