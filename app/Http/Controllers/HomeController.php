@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $config = config('imap.accounts.default');
+        $config = config('imap');
 
 // Connect to the mailbox
         $cm = new ClientManager($config);
@@ -34,12 +34,14 @@ class HomeController extends Controller
         $client = $cm->account();
 
 // Select the mailbox (folder) you want to retrieve emails from
+
         $client->connect();
         $folder = $client->getFolder('INBOX');
 
 
 // Get all unseen emails from the selected folder
-        $emails = $folder->messages()->all()->get();
+        $emails = $folder->getChildren();
+        dd($emails);
 
 // Loop through the emails and do something with them
         $data = [];

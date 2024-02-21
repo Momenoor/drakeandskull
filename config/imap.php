@@ -44,6 +44,7 @@ return [
     | array below.
     |
     */
+
     'accounts' => [
 
         'default' => [// account identifier
