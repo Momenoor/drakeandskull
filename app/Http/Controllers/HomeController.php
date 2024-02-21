@@ -4,14 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Webklex\PHPIMAP\ClientManager;
-use Webklex\PHPIMAP\Exceptions\AuthFailedException;
-use Webklex\PHPIMAP\Exceptions\ConnectionFailedException;
-use Webklex\PHPIMAP\Exceptions\FolderFetchingException;
-use Webklex\PHPIMAP\Exceptions\ImapBadRequestException;
-use Webklex\PHPIMAP\Exceptions\ImapServerErrorException;
 use Webklex\PHPIMAP\Exceptions\MaskNotFoundException;
-use Webklex\PHPIMAP\Exceptions\ResponseException;
-use Webklex\PHPIMAP\Exceptions\RuntimeException;
 
 class HomeController extends Controller
 {
@@ -41,8 +34,8 @@ class HomeController extends Controller
         $client = $cm->account();
 
 // Select the mailbox (folder) you want to retrieve emails from
-
-            $folder = $client->getFolder('INBOX');
+        $client->connect();
+        $folder = $client->getFolder('INBOX');
 
 
 // Get all unseen emails from the selected folder
