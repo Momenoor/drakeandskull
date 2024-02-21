@@ -168,7 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        GrofGraf\LaravelPDFMerger\Providers\PDFMergerServiceProvider::class,
+        //GrofGraf\LaravelPDFMerger\Providers\PDFMergerServiceProvider::class,
     ])->toArray(),
 
     /*
