@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExcelImportController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,11 +21,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/send', [HomeController::class, 'send'])->name('send');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/pdf-merger',App\Http\Controllers\combinePDFController::class);
+Route::get('/pdf-merger', App\Http\Controllers\combinePDFController::class);
 Route::post('/import', [ExcelImportController::class, 'import'])->name('import');
 Route::get('/import-form', [ExcelImportController::class, 'showForm'])->name('import.form');
-Route::get('/matching',App\Http\Controllers\MatchingController::class)->name('matching');
-Route::get('/case-request',App\Http\Controllers\CaseRequestController::class)->name('case.request');
+Route::get('/matching', App\Http\Controllers\MatchingController::class)->name('matching');
+Route::get('/case-request', App\Http\Controllers\CaseRequestController::class)->name('case.request');
 
 

@@ -26,37 +26,52 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        // Get the IMAP configuration from Laravel's configuration
         $config = config('imap');
 
-// Connect to the mailbox
+        // Connect to the mailbox
         $cm = new ClientManager($config);
-
         $client = $cm->account();
-
-// Select the mailbox (folder) you want to retrieve emails from
-
         $client->connect();
+
+        // Select the mailbox (folder) you want to retrieve emails from
         $folder = $client->getFolder('INBOX');
 
-
-// Get all unseen emails from the selected folder
-        $emails = $folder->getChildren();
-        dd($emails);
-
-// Loop through the emails and do something with them
+        // Get all unseen emails from the selected folder
+        $emails = $folder->messages()->all()->limit(20)->get();
+        // Loop through the emails and do something with them
         $data = [];
         foreach ($emails as $email) {
             // Access email properties
+
             $subject = $email->getSubject();
             $body = $email->getHTMLBody();
             $attachments = $email->getAttachments();
             $data[] = [$subject, $body, $attachments];
 
         }
-
-// Disconnect from the mailbox
-        $cm->disconnect();
-
         dd($data);
+        // Disconnect from the mailbox even if an exception occurs
+        if (isset($cm)) {
+            $cm->disconnect();
+
+        }
+    }
+
+    function send()
+    {
+        $receipt = 'momen.noor@gmail.com';
+
+
+        try {
+            \Mail::raw('test mail text', function ($mail) use ($receipt) {
+                $mail->to($receipt);
+            });
+            echo 'mail sent';
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+        }
+
     }
 }
