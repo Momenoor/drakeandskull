@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -15,7 +16,7 @@ class Haikala extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(public mixed $data)
     {
         //
     }
@@ -26,7 +27,7 @@ class Haikala extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Haikala',
+            subject: 'القضية رقم 106/2023 إجراءات إفلاس',
         );
     }
 
@@ -36,7 +37,8 @@ class Haikala extends Mailable
     public function content(): Content
     {
         return new Content(
-            text: 'view.name',
+            view: 'mails.iflas-mail',
+            with: ['data' => $this->data],
         );
     }
 
@@ -47,6 +49,10 @@ class Haikala extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            Attachment::fromPath('attachements/mails/إعلانات_النشر.pdf')->withMime('application/pdf'),
+            Attachment::fromPath('attachements/mails/حكم_المحكمة.pdf')->withMime('application/pdf'),
+            Attachment::fromPath('attachements/mails/هوية_المدين_وجواز_سفره.pdf')->withMime('application/pdf'),
+        ];
     }
 }

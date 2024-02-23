@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Haikala;
+use App\Models\IflasEmailList;
 use Illuminate\Contracts\Support\Renderable;
 use Webklex\PHPIMAP\ClientManager;
 use Webklex\PHPIMAP\Exceptions\MaskNotFoundException;
@@ -61,17 +63,16 @@ class HomeController extends Controller
 
     function send()
     {
-        $receipt = 'momen.noor@gmail.com';
+        $data = IflasEmailList::all()->skip(33);
+        foreach ($data as $item) {
+            //return view('mails.iflas-mail', ['data' => $item['name']]);
 
+            $mails = str_replace('\'','',$item['emails']);
+            $mails = explode(';', $mails);
 
-        try {
-            \Mail::raw('test mail text', function ($mail) use ($receipt) {
-                $mail->to($receipt);
-            });
-            echo 'mail sent';
-        } catch (\Exception $exception) {
-            dd($exception->getMessage());
+            if (!empty($mails[0])) {
+                \Mail::to($mails)->cc('m.elbaz@jpaemirates.com')->queue(new Haikala($item['name']));
+            }
         }
-
     }
 }
