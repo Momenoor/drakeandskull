@@ -22,7 +22,7 @@ class IflasEmailListImport implements ToModel, WithStartRow
     {
         if (!empty($row[1])) {
             $record['name'] = $row[1];
-            $record['emails'] = collect($row)->skip(3)->reject(function ($value) {
+            $record['emails'] = collect($row)->skip(2)->reject(function ($value) {
                 return is_null($value);
             })->implode(';');
             return new IflasEmailList($record);

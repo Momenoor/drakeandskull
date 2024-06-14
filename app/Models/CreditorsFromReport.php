@@ -13,5 +13,6 @@ class CreditorsFromReport extends Model
         'code',
         'creditor_name_ar',
         'creditor_name_en',
+        'email',
     ];
 }

@@ -27,7 +27,7 @@ class Haikala extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'القضية رقم 106/2023 إجراءات إفلاس',
+            subject: 'القضية رقم 110/2023 إجراءات إفلاس',
         );
     }
 
@@ -50,9 +50,10 @@ class Haikala extends Mailable
     public function attachments(): array
     {
         return [
-            Attachment::fromPath('attachements/mails/إعلانات_النشر.pdf')->withMime('application/pdf'),
-            Attachment::fromPath('attachements/mails/حكم_المحكمة.pdf')->withMime('application/pdf'),
-            Attachment::fromPath('attachements/mails/هوية_المدين_وجواز_سفره.pdf')->withMime('application/pdf'),
+            Attachment::fromPath('attachments/mails/إعلانات النشر.pdf')->withMime('application/pdf'),
+            Attachment::fromPath('attachments/mails/حكم المحكمة.pdf')->withMime('application/pdf'),
+            Attachment::fromPath('attachments/mails/رخصة الشركة.pdf')->withMime('application/pdf'),
+            Attachment::fromPath('attachments/mails/قرار التعيين.pdf')->withMime('application/pdf'),
         ];
     }
 }

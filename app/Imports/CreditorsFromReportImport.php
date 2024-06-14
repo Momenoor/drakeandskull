@@ -10,7 +10,7 @@ class CreditorsFromReportImport implements ToModel, WithStartRow
 {
     public function startRow(): int
     {
-        return 2; // Adjust this based on where your data starts
+        return 3; // Adjust this based on where your data starts
     }
     public function model(array $row): CreditorsFromReport
     {
@@ -18,6 +18,7 @@ class CreditorsFromReportImport implements ToModel, WithStartRow
             'code' => $row[0],
             'creditor_name_ar' => $row[1],
             'creditor_name_en' => $row[2],
+            'email' => $row[3],
         ]);
     }
 }
